@@ -1,0 +1,25 @@
+# Java
+*.class
+*.jar
+*.war
+*.log
+
+# Build folders
+/out/
+/target/
+/build/
+
+# Frontend
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE configs
+.idea/
+.vscode/
+
+# Temp files
+*.swp
+*.tmp
