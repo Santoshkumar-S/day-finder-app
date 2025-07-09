@@ -7,14 +7,19 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <button id="themeToggle">🌙</button>
   <div class="container">
+    <button class="info-btn" id="infoBtn" aria-label="Date range info"><span class="info-i">i</span></button>
+    <div class="info-tooltip" id="infoTooltip">Accepted range: 01-01-1900 to 31-12-2100</div>
     <h1>Find the Day for Any Date</h1>
-    <div class="input-group">
-      <input type="text" id="dateInput" required />
-      <label for="dateInput">Enter Date (DD-MM-YYYY)</label>
+      <div class="input-group">
+    <input type="text" id="dateInput" required placeholder=" " pattern="\d{2}-\d{2}-\d{4}" />
+    <label for="dateInput">Enter Date (DD-MM-YYYY)</label>
+  </div>
+    <div class="button-group">
+      <button onclick="findDay()" id="findDayBtn">Find Day</button>
+      <button onclick="resetFields()" id="resetBtn">Reset</button>
     </div>
-    <button onclick="findDay()">Find Day</button>
-    <button onclick="resetFields()" id="resetBtn">Reset</button>
     <p id="result"></p>
     <p id="fullDate"></p>
   </div>

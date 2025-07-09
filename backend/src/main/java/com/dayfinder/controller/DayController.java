@@ -1,38 +1,49 @@
 package com.dayfinder.controller;
 
+import com.dayfinder.service.DayService;
+import com.dayfinder.dto.DayResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.DayOfWeek;
-import java.util.HashMap;
-import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*") // allow frontend fetch to work
+@CrossOrigin(origins = "*")
 public class DayController {
 
-    @GetMapping("/day")
-    public Map<String, String> getDayFromDate(@RequestParam String date) {
-        Map<String, String> response = new HashMap<>();
-        response.put("input", date);
+    private static final Logger logger = LoggerFactory.getLogger(DayController.class);
 
-        try {
-            // Parse DD-MM-YYYY format
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate parsedDate = LocalDate.parse(date, formatter);
-            DayOfWeek day = parsedDate.getDayOfWeek();
-            String formattedDay = capitalize(day.toString());
+    private final DayService dayService;
 
-            response.put("day", formattedDay);
-        } catch (Exception e) {
-            response.put("error", "Invalid date format. Use DD-MM-YYYY.");
-        }
-
-        return response;
+    public DayController(DayService dayService) {
+        this.dayService = dayService;
     }
 
-    private String capitalize(String input) {
-        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    @GetMapping("/day")
+    public ResponseEntity<DayResponse> getDayFromDate(@RequestParam String date) {
+        logger.info("Received request for date: {}", date);
+
+        try {
+            String day = dayService.getDayFromDate(date);
+            DayResponse response = DayResponse.success(date, day);
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Invalid request: {}", e.getMessage());
+            DayResponse response = DayResponse.error(date, e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+
+        } catch (Exception e) {
+            logger.error("Unexpected error processing date: {}", date, e);
+            DayResponse response = DayResponse.error(date, "An unexpected error occurred. Please try again.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Day Finder API is running!");
     }
 }
