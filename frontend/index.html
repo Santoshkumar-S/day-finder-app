@@ -9,10 +9,14 @@
 <body>
   <div class="container">
     <h1>Find the Day for Any Date</h1>
-    <input type="text" id="dateInput" placeholder="Enter date (DD-MM-YYYY)" />
-    <p id="hint">Format: DD-MM-YYYY</p>
+    <div class="input-group">
+      <input type="text" id="dateInput" required />
+      <label for="dateInput">Enter Date (DD-MM-YYYY)</label>
+    </div>
     <button onclick="findDay()">Find Day</button>
+    <button onclick="resetFields()" id="resetBtn">Reset</button>
     <p id="result"></p>
+    <p id="fullDate"></p>
   </div>
   <script src="script.js"></script>
 </body>
