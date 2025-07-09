@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Day Finder App</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Date to Day Finder</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Find the Day</h1>
-    <input type="date" id="dateInput">
-    <button onclick="findDay()">Get Day</button>
+    <h1>Find the Day for Any Date</h1>
+    <input type="text" id="dateInput" placeholder="Enter date (DD-MM-YYYY)" />
+    <p id="hint">Format: DD-MM-YYYY</p>
+    <button onclick="findDay()">Find Day</button>
     <p id="result"></p>
   </div>
   <script src="script.js"></script>
