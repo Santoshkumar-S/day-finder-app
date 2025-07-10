@@ -11,12 +11,11 @@ import org.springframework.http.HttpStatus;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = {
+        "https://santoshkumar-s.github.io",
         "http://localhost:3000",
         "http://localhost:8000",
         "http://127.0.0.1:3000",
-        "http://127.0.0.1:8000",
-        "https://*.github.io",
-        "https://*.onrender.com"
+        "http://127.0.0.1:8000"
 })
 public class DayController {
 
