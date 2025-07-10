@@ -241,13 +241,18 @@ function toggleTheme() {
 }
 
 function checkApiHealth() {
+    // Only check health in production (not localhost)
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+    if (isLocalhost) return;
     fetch(`${API_BASE_URL}/health`)
         .then(response => {
             if (!response.ok) {
-                console.warn('API health check failed');
+                showError("⚠️ Backend is not available. Some features may not work.");
             }
         })
         .catch(error => {
-            console.warn('API health check failed:', error);
+            showError("⚠️ Backend is not available. Some features may not work.");
         });
 }
