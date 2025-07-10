@@ -28,12 +28,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Copy frontend files
+      - name: Clean deployment root
         run: |
-          cp -r frontend/* .
+          find . -maxdepth 1 ! -name '.' ! -name '.git' -exec rm -rf {} +
 
-      - name: Remove README.md from deployment root
-        run: rm -f README.md
+      - name: Copy frontend files
+        run: cp -r frontend/* .
+
+      - name: List files in deployment root
+        run: ls -l
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
