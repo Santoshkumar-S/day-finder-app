@@ -9,6 +9,7 @@ if [ ! -f "index.html" ]; then
     exit 1
 fi
 
+
 # Get the repository name from git
 REPO_NAME=$(basename -s .git `git config --get remote.origin.url`)
 USERNAME=$(git config --get remote.origin.url | sed 's/.*github.com[:/]\([^/]*\).*/\1/')
