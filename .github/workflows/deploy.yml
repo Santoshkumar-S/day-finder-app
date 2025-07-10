@@ -28,20 +28,19 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Clean deployment root
+      - name: Prepare build directory
         run: |
-          find . -maxdepth 1 ! -name '.' ! -name '.git' -exec rm -rf {} +
+          rm -rf build
+          mkdir build
+          cp -r frontend/* build/
 
-      - name: Copy frontend files
-        run: cp -r frontend/* .
-
-      - name: List files in deployment root
-        run: ls -l
+      - name: List files in build directory
+        run: ls -l build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: "build"
 
       - name: Deploy to GitHub Pages
         id: deployment
