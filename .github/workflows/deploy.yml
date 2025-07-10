@@ -32,6 +32,9 @@ jobs:
         run: |
           cp -r frontend/* .
 
+      - name: Remove README.md from deployment root
+        run: rm -f README.md
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
