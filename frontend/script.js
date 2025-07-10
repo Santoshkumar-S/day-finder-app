@@ -34,7 +34,7 @@ let debounceTimer = null;
 let isLoading = false;
 
 // Constants
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
 const DATE_REGEX = /^\d{2}-\d{2}-\d{4}$/;
 
 // Initialize

@@ -1,0 +1,69 @@
+name: Deploy Frontend to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+    paths: ["frontend/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Create deployment branch
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Copy frontend files to deployment branch
+        run: |
+          # Create or checkout gh-pages branch
+          git checkout -b gh-pages || git checkout gh-pages
+
+          # Remove all files except .git
+          git rm -rf . || true
+
+          # Copy frontend files to root
+          cp -r frontend/* .
+
+          # Remove deployment-specific files
+          rm -f setup-github-pages.sh
+          rm -f GITHUB_PAGES_DEPLOYMENT.md
+
+          # Add all files
+          git add .
+
+          # Commit changes
+          git commit -m "Deploy frontend to GitHub Pages [skip ci]" || echo "No changes to commit"
+
+          # Push to gh-pages branch
+          git push origin gh-pages --force
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
