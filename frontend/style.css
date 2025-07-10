@@ -463,9 +463,6 @@ body.dark-mode #fullDate {
 /* --- Fix 2: Single-line error/warning message --- */
 #result.error {
   color: #e74c3c;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 1.08rem;
   display: flex;
   align-items: center;

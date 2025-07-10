@@ -198,7 +198,7 @@ async function findDay() {
     } catch (error) {
         console.error('API Error:', error);
         if (error.name === 'TypeError' && error.message.includes('fetch')) {
-            showError("❌ Failed to connect to server. Please check if the backend is running.");
+            showError("❌ Failed to connect to the server.\nPlease check if the backend is running.");
         } else {
             showError("❌ An unexpected error occurred. Please try again.");
         }
