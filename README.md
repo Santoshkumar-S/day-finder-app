@@ -2,6 +2,18 @@
 
 A modern, high-performance web application for finding the day of the week for any given date. Built with Spring Boot backend and vanilla JavaScript frontend.
 
+---
+
+## 🚦 Branching & Deployment
+
+- **Local Development:**
+  - The `master` branch is used for all local development. Run both backend and frontend from this branch.
+- **Production Deployment:**
+  - The frontend is deployed to GitHub Pages from a separate branch dedicated to production. See `frontend/GITHUB_PAGES_DEPLOYMENT.md` for details.
+  - The backend deployment process is documented in `backend/RENDER_DEPLOYMENT.md`.
+
+---
+
 ## 🚀 Features
 
 ### Backend Optimizations
@@ -29,6 +41,8 @@ A modern, high-performance web application for finding the day of the week for a
 - **Responsive Design**: Mobile-friendly interface
 - **Performance**: Optimized CSS with reduced repaints and reflows
 
+---
+
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -46,6 +60,8 @@ A modern, high-performance web application for finding the day of the week for a
 - **HTML5** - Semantic markup
 - **Local Storage** - Theme persistence
 
+---
+
 ## 📦 Installation & Setup
 
 ### Prerequisites
@@ -58,21 +74,27 @@ A modern, high-performance web application for finding the day of the week for a
 
 ```bash
 cd backend
-mvn clean install
-mvn spring-boot:run
+./mvnw clean install
+./mvnw spring-boot:run
 ```
 
 The backend will start on `http://localhost:8080`
 
-### Frontend Setup
+See `backend/RENDER_DEPLOYMENT.md` for production deployment instructions.
+
+### Frontend Setup (Local Development)
 
 ```bash
 cd frontend
-# Open index.html in your browser
-# Or serve with a local server:
+# Open index.html directly in your browser
+# OR serve with a local server:
 python -m http.server 8000
 # Then visit http://localhost:8000
 ```
+
+For production deployment to GitHub Pages, see `frontend/GITHUB_PAGES_DEPLOYMENT.md`.
+
+---
 
 ## 🧪 Testing
 
@@ -80,7 +102,7 @@ python -m http.server 8000
 
 ```bash
 cd backend
-mvn test
+./mvnw test
 ```
 
 ### Manual Testing
@@ -89,6 +111,8 @@ mvn test
 2. Enter a date in DD-MM-YYYY format (e.g., 25-12-2024)
 3. Click "Find Day" or press Enter
 4. View the result and full date display
+
+---
 
 ## 🔧 API Endpoints
 
@@ -121,6 +145,41 @@ Health check endpoint.
 Day Finder API is running!
 ```
 
+---
+
+## ⚠️ Error Messages (Console & Network Tab)
+
+The following error messages may be displayed to users in the browser console or network tab:
+
+**Frontend Error Messages:**
+
+- ⚠️ Please enter a date.
+- ⚠️ Please use DD-MM-YYYY format (e.g., 25-12-2024)
+- ⚠️ Please enter a valid date
+- ❌ Invalid date format. (fallback if backend does not provide a specific error)
+- ❌ Failed to connect to the server.  
+  Please check if the backend is running.
+- ❌ An unexpected error occurred. Please try again.
+- ⚠️ Backend is not available. Some features may not work.
+
+**Backend Error Messages (sent in JSON, shown in frontend):**
+
+- "Invalid date format. Use DD-MM-YYYY."
+- "Date must be between 1900 and 2100."
+- "Invalid date. Please check the date format and validity."
+- "An unexpected error occurred. Please try again." (for server errors)
+
+**How these appear:**
+
+- If the backend returns a specific error (e.g., invalid format, out of range), it is shown to the user.
+- If the backend is unreachable, the frontend shows:  
+  ❌ Failed to connect to the server.  
+  Please check if the backend is running.
+- For any other unexpected error, the frontend shows:  
+  ❌ An unexpected error occurred. Please try again.
+
+---
+
 ## 🎯 Performance Optimizations
 
 ### Backend Performance
@@ -138,6 +197,8 @@ Day Finder API is running!
 - **Lazy Loading**: Theme preference loaded on demand
 - **Error Boundaries**: Graceful error handling prevents crashes
 
+---
+
 ## 🔒 Security Features
 
 - **Input Validation**: Server-side validation prevents injection attacks
@@ -145,12 +206,16 @@ Day Finder API is running!
 - **CORS Configuration**: Proper cross-origin resource sharing
 - **HTTP Headers**: Security headers for XSS protection
 
+---
+
 ## 📱 Browser Support
 
 - Chrome 90+
 - Firefox 88+
 - Safari 14+
 - Edge 90+
+
+---
 
 ## 🐛 Troubleshooting
 
@@ -173,6 +238,8 @@ Day Finder API is running!
    - Ensure date is between 1900-2100
    - Check for valid dates (e.g., no February 30)
 
+---
+
 ## 📈 Monitoring
 
 The application includes comprehensive logging:
@@ -182,6 +249,8 @@ The application includes comprehensive logging:
 - Performance metrics
 - Rate limiting events
 
+---
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -189,6 +258,8 @@ The application includes comprehensive logging:
 3. Make your changes
 4. Add tests for new functionality
 5. Submit a pull request
+
+---
 
 ## 📄 License
 
